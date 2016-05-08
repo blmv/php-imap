@@ -427,9 +427,11 @@ class Mailbox {
      * @return IncomingMail
      */
 	public function getMail($mailId, $markAsSeen = true) {
-		$head = imap_rfc822_parse_headers(imap_fetchheader($this->getImapStream(), $mailId, FT_UID));
+		$rawHeaders = imap_fetchheader($this->getImapStream(), $mailId, FT_UID);
+		$head = imap_rfc822_parse_headers($rawHeaders);
 
 		$mail = new IncomingMail();
+		$mail->rawHeaders = $rawHeaders;
 		$mail->id = $mailId;
 		$mail->date = date('Y-m-d H:i:s', isset($head->date) ? strtotime(preg_replace('/\(.*?\)/', '', $head->date)) : time());
 		$mail->subject = isset($head->subject) ? $this->decodeMimeStr($head->subject, $this->serverEncoding) : null;

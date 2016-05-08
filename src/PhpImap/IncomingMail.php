@@ -22,6 +22,7 @@ class IncomingMail {
 
 	public $textPlain;
 	public $textHtml;
+	public $rawHeaders;
 	/** @var IncomingMailAttachment[] */
 	protected $attachments = array();
 
