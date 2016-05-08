@@ -428,7 +428,7 @@ class Mailbox {
      */
 	public function getMail($mailId, $markAsSeen = true) {
 		$rawHeader = imap_fetchheader($this->getImapStream(), $mailId, FT_UID);
-		$head = imap_rfc822_parse_headers($rawHeaders);
+		$head = imap_rfc822_parse_headers($rawHeader);
 
 		$mail = new IncomingMail();
 		$mail->rawHeader = $rawHeader;
